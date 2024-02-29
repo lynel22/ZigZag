@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class JugadorBola : MonoBehaviour
 {
@@ -18,6 +20,7 @@ public class JugadorBola : MonoBehaviour
     private float ValX, ValZ;
     private Vector3 direccionActual;
     private int puntos=0;
+    private int cont=3;
     
     // Start is called before the first frame update
     void Start()
@@ -45,6 +48,13 @@ public class JugadorBola : MonoBehaviour
         {   
             puntos++;
             barraProgreso.BarValue = (float)puntos/puntosMax*100;
+            if(puntos == puntosMax){
+                audioManager.instance.Play("Levelup");
+                SceneManager.LoadScene("Fin");
+            }
+            else{
+                audioManager.instance.Play("Punto");
+            }
             Destroy(other.gameObject);
         }
     
@@ -65,7 +75,7 @@ public class JugadorBola : MonoBehaviour
     {
         if (collision.gameObject.name.Contains("Booster"))
         {
-            velocidad = 35.0f;
+            velocidad = velocidadMax;
             StartCoroutine(ReiniciarVelocidad());
         }
     }
@@ -73,16 +83,18 @@ public class JugadorBola : MonoBehaviour
 
     IEnumerator ReiniciarVelocidad()
     {
-        for (int i = 0; i < 10; i++)
-        {
-            velocidad -= 1.0f;
-            yield return new WaitForSeconds(0.5f);
+        for (int i = 0; i < 5; i++)
+        {   if(velocidad > 15.0f){
+                velocidad -= 0.5f;
+            }
+            
+            yield return new WaitForSeconds(1.0f);
         }
     }
 
 
     IEnumerator BorrarSuelo(GameObject suelo)
-    {
+    {   
         float aleatorio = Random.Range(0.0f, 1.0f);
         float especial = Random.Range(0.0f, 1.0f);
         Quaternion rotacion;
@@ -97,19 +109,20 @@ public class JugadorBola : MonoBehaviour
             rotacion=Quaternion.Euler(0, 180, 0);
         }
 
-        if (especial < 0.95f)
-        {   if(especial < 0.2f){ // es punto
+        if (especial > 0.95f && cont <= 0)
+        {   
+            cont=3;
+            Instantiate(booster, new Vector3(ValX, 0, ValZ), rotacion);
+        }
+        else // es especial
+        {   
+            if(especial < 0.2f){ // es punto
                 Instantiate(sueloPunto, new Vector3(ValX, 0, ValZ), Quaternion.identity);
             }
             else{
                 Instantiate(suelo, new Vector3(ValX, 0, ValZ), Quaternion.identity);
             }
-        }
-        else // es especial
-        {   
-            
-                Instantiate(booster, new Vector3(ValX, 0, ValZ), rotacion);
-            
+            cont--;
         }
         
         yield return new WaitForSeconds(2.5f);
@@ -133,7 +146,7 @@ public class JugadorBola : MonoBehaviour
 
     void CrearSueloIni()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 3; i++)
         {
             ValZ += 6f;
             Instantiate(suelo, new Vector3(ValX, 0, ValZ), Quaternion.identity);
