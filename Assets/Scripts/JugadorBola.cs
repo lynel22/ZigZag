@@ -30,7 +30,8 @@ public class JugadorBola : MonoBehaviour
     
     // Start is called before the first frame update
     void Start()
-    {   barraProgreso.BarValue = 0;
+    {   audioManager.instance.Play("Level1");
+        barraProgreso.BarValue = 0;
         offset = camara.transform.position;
         CrearSueloIni();
         direccionActual = Vector3.forward;
@@ -48,8 +49,8 @@ public class JugadorBola : MonoBehaviour
 
         transform.Translate(direccionActual * velocidad * Time.deltaTime, Space.World);
 
-        if (transform.position.y < -1f) // Puedes ajustar este valor según la altura del vacío en tu escena
-        {
+        if (transform.position.y < -5.0f) // Puedes ajustar este valor según la altura del vacío en tu escena
+        {   audioManager.instance.Stop("Level1");
             SceneManager.LoadScene("Perder"); // Cargar la escena de perder
         }
     }
@@ -62,6 +63,7 @@ public class JugadorBola : MonoBehaviour
             barraProgreso.BarValue = (float)puntos/puntosMax*100;
             if(puntos == puntosMax){
                 audioManager.instance.Play("Levelup");
+                audioManager.instance.Stop("Level1");
                 SceneManager.LoadScene("Fin");
             }
             else{
@@ -83,24 +85,20 @@ public class JugadorBola : MonoBehaviour
     
     void OnCollisionEnter(Collision collision)
     {
-        float aleatorio = Random.Range(0.0f, 1.0f);
 
-        if (aleatorio > 0.5f)
+        if (collision.gameObject.name.Contains("Booster"))
         {
-            if (collision.gameObject.name.Contains("Booster"))
-            {
-                velocidad = velocidadMax;
-                StartCoroutine(ReiniciarVelocidad());
-            }
+            velocidad = velocidadMax;
+            StartCoroutine(ReiniciarVelocidad());
         }
-        else
+        
+
+        if (collision.gameObject.name.Contains("SueloRojo"))
         {
-            if (collision.gameObject.name.Contains("SueloRojo"))
-            {
-                velocidad = velocidadMin;
-                StartCoroutine(ReiniciarVelocidad());
-            }
+            velocidad = velocidadMin;
+            StartCoroutine(ReiniciarVelocidad());
         }
+    
         
     }
 

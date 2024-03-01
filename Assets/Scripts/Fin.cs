@@ -4,20 +4,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuInicial : MonoBehaviour
-{
-    public Button boton;
+public class Fin : MonoBehaviour
+{   public Button boton;
     // Start is called before the first frame update
-    public void Jugar(){
-        SceneManager.LoadScene("Nivel1");
-        audioManager.instance.Stop("Menu");
-    }
-    
-    
-    
     void Start()
-    {   boton.onClick.AddListener(Jugar);
-        audioManager.instance.Play("Menu");
+    {   audioManager.instance.Play("Victory");
+        boton.onClick.AddListener(Reiniciar);
+    }
+
+    void Reiniciar(){
+        SceneManager.LoadScene("Inicio");
+        audioManager.instance.Stop("Victory");
     }
 
     // Update is called once per frame

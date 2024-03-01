@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -157,7 +157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -458, y: 315}
+  m_AnchoredPosition: {x: -229, y: 125}
   m_SizeDelta: {x: 1168.9978, y: 279.0225}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &49005669
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ball Land
+  m_text: Infinite ZigZag
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
@@ -462,7 +462,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 577, y: -165}
+  m_AnchoredPosition: {x: 206.71, y: -157}
   m_SizeDelta: {x: 244.4322, y: 141.2648}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &879470591
@@ -663,7 +663,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.32296965, g: 0.33546335, b: 0.8930817, a: 0}
+  m_BackGroundColor: {r: 0.2264151, g: 0.2264151, b: 0.2264151, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -751,6 +751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4c856d966d553f4c82b842ce5af00b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boton: {fileID: 879470591}
 --- !u!114 &999745216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -893,7 +894,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Jugar
+  m_text: PLAY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
@@ -1009,6 +1010,26 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 16d8651750ac86c4082658fec9ec38fa, type: 3}
     volume: 0.35
     loop: 0
+    source: {fileID: 0}
+  - name: Level1
+    clip: {fileID: 8300000, guid: c8b403b20a5b0e649b9a414feab7dcf3, type: 3}
+    volume: 0.35
+    loop: 1
+    source: {fileID: 0}
+  - name: Death
+    clip: {fileID: 8300000, guid: 451e881daaefa0c47b41bec278895eae, type: 3}
+    volume: 0.35
+    loop: 0
+    source: {fileID: 0}
+  - name: Victory
+    clip: {fileID: 8300000, guid: 488eb5c5300638a4ea53d93601a75fd5, type: 3}
+    volume: 0.35
+    loop: 0
+    source: {fileID: 0}
+  - name: Menu
+    clip: {fileID: 8300000, guid: c5e7ec313db26bd4c9126da17a962d2f, type: 3}
+    volume: 0.35
+    loop: 1
     source: {fileID: 0}
 --- !u!4 &1675950203
 Transform:
