@@ -8,11 +8,14 @@ public class JugadorBola : MonoBehaviour
 {
     //PUBLICAS
     public Camera camara;
-    public GameObject suelo;
+    public GameObject sueloVerde;
+    public GameObject sueloRojo;
     public GameObject booster;
     public GameObject sueloPunto;
     public float velocidad = 5.0f;
     public float velocidadMax = 30.0f;
+
+    public float velocidadMin = 7.5f;
     public ProgressBar barraProgreso;
     public int puntosMax = 25;
     //PRIVADAS
@@ -21,6 +24,9 @@ public class JugadorBola : MonoBehaviour
     private Vector3 direccionActual;
     private int puntos=0;
     private int cont=3;
+
+    private int rojos=5;
+    public Transform background;
     
     // Start is called before the first frame update
     void Start()
@@ -28,6 +34,7 @@ public class JugadorBola : MonoBehaviour
         offset = camara.transform.position;
         CrearSueloIni();
         direccionActual = Vector3.forward;
+        background.transform.position = new Vector3(background.transform.position.x, background.transform.position.y, 10);
     }
 
     // Update is called once per frame
@@ -40,6 +47,11 @@ public class JugadorBola : MonoBehaviour
         }
 
         transform.Translate(direccionActual * velocidad * Time.deltaTime, Space.World);
+
+        if (transform.position.y < -1f) // Puedes ajustar este valor según la altura del vacío en tu escena
+        {
+            SceneManager.LoadScene("Perder"); // Cargar la escena de perder
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -59,8 +71,7 @@ public class JugadorBola : MonoBehaviour
         }
     
     }
-
-
+    
     void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag == "Suelo")
@@ -70,14 +81,27 @@ public class JugadorBola : MonoBehaviour
     }
 
     
-    
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name.Contains("Booster"))
+        float aleatorio = Random.Range(0.0f, 1.0f);
+
+        if (aleatorio > 0.5f)
         {
-            velocidad = velocidadMax;
-            StartCoroutine(ReiniciarVelocidad());
+            if (collision.gameObject.name.Contains("Booster"))
+            {
+                velocidad = velocidadMax;
+                StartCoroutine(ReiniciarVelocidad());
+            }
         }
+        else
+        {
+            if (collision.gameObject.name.Contains("SueloRojo"))
+            {
+                velocidad = velocidadMin;
+                StartCoroutine(ReiniciarVelocidad());
+            }
+        }
+        
     }
 
 
@@ -87,9 +111,13 @@ public class JugadorBola : MonoBehaviour
         {   if(velocidad > 15.0f){
                 velocidad -= 0.5f;
             }
-            
+            else if (velocidad < 15.0f)
+            {
+                velocidad += 0.5f;
+            }
             yield return new WaitForSeconds(1.0f);
         }
+        velocidad = 15.0f;
     }
 
 
@@ -120,9 +148,18 @@ public class JugadorBola : MonoBehaviour
                 Instantiate(sueloPunto, new Vector3(ValX, 0, ValZ), Quaternion.identity);
             }
             else{
-                Instantiate(suelo, new Vector3(ValX, 0, ValZ), Quaternion.identity);
+                if (aleatorio > 0.9f && rojos <= 0)
+                {
+                    rojos = 5;
+                    Instantiate(sueloRojo, new Vector3(ValX, 0, ValZ), Quaternion.identity);
+                }
+                else
+                {
+                    Instantiate(sueloVerde, new Vector3(ValX, 0, ValZ), Quaternion.identity);
+                }
             }
             cont--;
+            rojos--;
         }
         
         yield return new WaitForSeconds(2.5f);
@@ -149,7 +186,7 @@ public class JugadorBola : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             ValZ += 6f;
-            Instantiate(suelo, new Vector3(ValX, 0, ValZ), Quaternion.identity);
+            Instantiate(sueloVerde, new Vector3(ValX, 0, ValZ), Quaternion.identity);
             
         }
     }

@@ -7,6 +7,7 @@ TagManager:
   - Suelo
   - SpeedPad
   - Punto
+  - Start
   layers:
   - Default
   - TransparentFX
