@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3325987475648013588}
   - component: {fileID: 4306721637971991711}
   m_Layer: 0
-  m_Name: SueloVerde
+  m_Name: Suelo
   m_TagString: Suelo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

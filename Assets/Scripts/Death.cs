@@ -13,7 +13,7 @@ public class Death : MonoBehaviour
     }
 
     public void Reiniciar(){
-        SceneManager.LoadScene("Inicio");
+        SceneManager.LoadScene("Nivel"+PlayerPrefs.GetInt("level").ToString());
         audioManager.instance.Stop("Death");
     }
 

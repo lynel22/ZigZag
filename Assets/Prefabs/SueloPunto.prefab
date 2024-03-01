@@ -45,6 +45,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Suelo (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4677210188334474834, guid: 7955b1e7e5c997444ae1c2bf39d1fb3b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 673e5e080337e0c42b231c0acec3bdee, type: 2}
     - target: {fileID: 5913481102447008582, guid: 7955b1e7e5c997444ae1c2bf39d1fb3b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
