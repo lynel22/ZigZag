@@ -363,7 +363,7 @@ MonoBehaviour:
   velocidadMax: 17
   velocidadMin: 7.5
   barraProgreso: {fileID: 323644967}
-  puntosMax: 15
+  puntosMax: 25
   background: {fileID: 0}
 --- !u!54 &461867511
 Rigidbody:
@@ -504,7 +504,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1296194008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aafc8b0322aa6e84eb45e5a74e64a46a, type: 3}
+  m_Script: {fileID: 11500000, guid: e01189512ec3b5f489247fd61718db2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1553960464
@@ -544,21 +544,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114165064244077878, guid: 5eefba205a58c8c4a937c97b87c185a3, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114165064244077878, guid: 5eefba205a58c8c4a937c97b87c185a3, type: 3}
-      propertyPath: m_RaycastTarget
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114165064244077878, guid: 5eefba205a58c8c4a937c97b87c185a3, type: 3}
       propertyPath: m_FontData.m_Font
       value: 
       objectReference: {fileID: 12800000, guid: 8a2b9e2a607dd2143b58c44bc32410b4, type: 3}
-    - target: {fileID: 114165064244077878, guid: 5eefba205a58c8c4a937c97b87c185a3, type: 3}
-      propertyPath: m_FontData.m_BestFit
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 114165064244077878, guid: 5eefba205a58c8c4a937c97b87c185a3, type: 3}
       propertyPath: m_FontData.m_FontSize
       value: 50
@@ -566,10 +554,6 @@ PrefabInstance:
     - target: {fileID: 114165064244077878, guid: 5eefba205a58c8c4a937c97b87c185a3, type: 3}
       propertyPath: m_FontData.m_Alignment
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114165064244077878, guid: 5eefba205a58c8c4a937c97b87c185a3, type: 3}
-      propertyPath: m_FontData.m_AlignByGeometry
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114769781544105922, guid: 5eefba205a58c8c4a937c97b87c185a3, type: 3}
       propertyPath: Alert
@@ -629,19 +613,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 224349869077908042, guid: 5eefba205a58c8c4a937c97b87c185a3, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 223.037
+      value: 162.9432
       objectReference: {fileID: 0}
     - target: {fileID: 224349869077908042, guid: 5eefba205a58c8c4a937c97b87c185a3, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 52.7409
+      value: 25.5355
       objectReference: {fileID: 0}
     - target: {fileID: 224349869077908042, guid: 5eefba205a58c8c4a937c97b87c185a3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.0000038142
+      value: 0.0000061989
       objectReference: {fileID: 0}
     - target: {fileID: 224349869077908042, guid: 5eefba205a58c8c4a937c97b87c185a3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -20.9
+      value: -22.558
       objectReference: {fileID: 0}
     - target: {fileID: 224763426186284840, guid: 5eefba205a58c8c4a937c97b87c185a3, type: 3}
       propertyPath: m_Pivot.x
@@ -721,7 +705,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 224763426186284840, guid: 5eefba205a58c8c4a937c97b87c185a3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -33
+      value: -42
       objectReference: {fileID: 0}
     - target: {fileID: 224763426186284840, guid: 5eefba205a58c8c4a937c97b87c185a3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -911,10 +895,6 @@ PrefabInstance:
     - target: {fileID: 2383866758179037997, guid: 7955b1e7e5c997444ae1c2bf39d1fb3b, type: 3}
       propertyPath: m_Name
       value: Suelo
-      objectReference: {fileID: 0}
-    - target: {fileID: 2383866758179037997, guid: 7955b1e7e5c997444ae1c2bf39d1fb3b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5913481102447008582, guid: 7955b1e7e5c997444ae1c2bf39d1fb3b, type: 3}
       propertyPath: m_LocalPosition.x

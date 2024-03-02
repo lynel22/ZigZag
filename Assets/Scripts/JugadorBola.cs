@@ -15,12 +15,13 @@ public class JugadorBola : MonoBehaviour
     public GameObject booster;
     public GameObject sueloPunto;
     public GameObject sueloPinchosFor;
+    public GameObject sueloSalto;
     public float velocidad = 5.0f;
-    public float velocidadMax = 30.0f;
+    public float velocidadMax = 20.0f;
 
     public float velocidadMin = 7.5f;
     public ProgressBar barraProgreso;
-    public int puntosMax = 25;
+    public int puntosMax = 15;
     //PRIVADAS
     private Vector3 offset;
     private float ValX, ValZ;
@@ -29,8 +30,12 @@ public class JugadorBola : MonoBehaviour
     private int cont=3;
     private bool acelerado = false;
     private int rojos=5;
+    private int salto=4;
     private bool derecha=false;
     private int Pincho=0;
+    private object lockObject = new object();
+
+    public Transform background;
     
     // Start is called before the first frame update
     void Start()
@@ -78,7 +83,8 @@ public class JugadorBola : MonoBehaviour
                         break;
                 }
             }
-            else{
+            else
+            {
                 audioManager.instance.Play("Punto");
             }
             Destroy(other.gameObject);
@@ -88,7 +94,20 @@ public class JugadorBola : MonoBehaviour
             audioManager.instance.Stop("Level"+PlayerPrefs.GetInt("level").ToString());
             SceneManager.LoadScene("Perder");
         }
-    
+
+        if(other.gameObject.tag == "Salto")
+        {
+            StartCoroutine(Salto());
+            
+        }
+    }
+
+    IEnumerator Salto()
+    {   
+        GetComponent<Rigidbody>().AddForce(Vector3.up * 6, ForceMode.Impulse);
+        velocidad = 5.0f;
+        yield return new WaitForSeconds(1.0f);
+        StartCoroutine(ReiniciarVelocidad(10,velocidad));
     }
     
     void OnCollisionExit(Collision collision)
@@ -106,32 +125,32 @@ public class JugadorBola : MonoBehaviour
         if (collision.gameObject.name.Contains("Booster"))
         {
             velocidad = velocidadMax;
-            acelerado = true;
+            
+            StartCoroutine(ReiniciarVelocidad(5,velocidad));
         }
     
         if (collision.gameObject.name.Contains("SueloRojo"))
         {
             velocidad = velocidadMin;
-            acelerado = false;
+            
+            StartCoroutine(ReiniciarVelocidad(3,velocidad));
         }
     
-        StartCoroutine(ReiniciarVelocidad());
+        
     }
 
 
-    IEnumerator ReiniciarVelocidad()
-    {   
-        for (int i = 0; i < 5; i++)
-        {   if(velocidad > 15.0f && acelerado){
-                velocidad -= 0.5f;
+    IEnumerator ReiniciarVelocidad(int nSeconds,float velAsig)
+    {   yield return new WaitForSeconds(1.0f);
+        for (int i = 0; i < nSeconds; i++)
+        {   if(velocidad > 15.0f ){
+                lock(lockObject){velocidad -= (15.0f-velAsig)/nSeconds;}
             }
-            else if (velocidad < 15.0f && !acelerado)
-            {
-               velocidad += 0.5f;
+            else if (velocidad < 15.0f )
+            {   lock(lockObject){velocidad +=(15.0f-velAsig)/nSeconds;}
             }
             yield return new WaitForSeconds(1.0f);
         }
-        velocidad = 15.0f;
     }
 
 
@@ -142,10 +161,10 @@ public class JugadorBola : MonoBehaviour
         Quaternion rotacion;
         if(aleatorio > 0.5f ) //derecha
         {   
-            if(Pincho ==1 && derecha){
+            if((Pincho ==1||salto ==3) && derecha){
                     ValX += 6f;
                     derecha=true;
-            }    
+            }
             else
             {
                     ValZ += 6f;
@@ -153,7 +172,7 @@ public class JugadorBola : MonoBehaviour
             }
         }
         else //adelante
-        {   if(Pincho == 1 && !derecha){
+        {   if((Pincho ==1||salto ==3) && !derecha){
             
                 ValZ += 6f;
                 derecha=false;
@@ -194,18 +213,32 @@ public class JugadorBola : MonoBehaviour
                     }
                 }
                 else{
-                    if(especial < 0.2f){ // es punto
-                        Instantiate(sueloPunto, new Vector3(ValX, 0, ValZ), Quaternion.identity);
+                    if(especial > 0.5f && salto<=0 && PlayerPrefs.GetInt("level")==3){ // es salto
+                        salto=4;
+                        if(derecha){//salto derecha
+                            Instantiate(sueloSalto, new Vector3(ValX, 0, ValZ), Quaternion.Euler(0, 90, 0));
+                            
+                        }
+                        else{//salto adelante
+                            Instantiate(sueloSalto, new Vector3(ValX, 0, ValZ), Quaternion.identity);
+                        }
                     }
                     else{
-                        Instantiate(sueloVerde, new Vector3(ValX, 0, ValZ), Quaternion.identity);
+                        if(especial < 0.2f){ // es punto
+                            Instantiate(sueloPunto, new Vector3(ValX, 0, ValZ), Quaternion.identity);
+                        }
+                        else{
+                            Instantiate(sueloVerde, new Vector3(ValX, 0, ValZ), Quaternion.identity);
+                        }
                     }
+                    
                 }
                 
             }
             Pincho--;
             cont--;
             rojos--;
+            salto--;
         }
         
         yield return new WaitForSeconds(2.5f);
