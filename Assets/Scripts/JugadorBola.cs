@@ -201,7 +201,8 @@ public class JugadorBola : MonoBehaviour
                 Instantiate(sueloRojo, new Vector3(ValX, 0, ValZ), Quaternion.identity);
             }
             else{
-                if(especial > 0.65f && PlayerPrefs.GetInt("level") == 2){ // es pinchos
+                if((especial > 0.65f && PlayerPrefs.GetInt("level") == 2) 
+                    || (especial > 0.7f && PlayerPrefs.GetInt("level") == 3)){ // es pinchos
                     Pincho=2;
                     if(derecha){//pinchos derecha
                         Instantiate(sueloPinchosFor, new Vector3(ValX, 0, ValZ), Quaternion.Euler(0, -90, 0));
