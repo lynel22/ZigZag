@@ -12,6 +12,7 @@ public class JugadorBola : MonoBehaviour
     public GameObject sueloRojo;
     public GameObject booster;
     public GameObject sueloPunto;
+    public GameObject sueloPinchosFor;
     public float velocidad = 5.0f;
     public float velocidadMax = 30.0f;
 
@@ -26,6 +27,8 @@ public class JugadorBola : MonoBehaviour
     private int cont=3;
     private bool acelerado = false;
     private int rojos=5;
+    private bool derecha=false;
+    private int Pincho=0;
     public Transform background;
     
     // Start is called before the first frame update
@@ -62,10 +65,10 @@ public class JugadorBola : MonoBehaviour
         if (other.gameObject.tag == "Punto")
         {   
             puntos++;
-            barraProgreso.BarValue = (float)puntos/puntosMax*100;
+            barraProgreso.BarValue = (int)puntos/puntosMax*100;
             if(puntos == puntosMax){
                 audioManager.instance.Play("Levelup");
-                audioManager.instance.Stop("Nivel"+PlayerPrefs.GetInt("level").ToString());
+                audioManager.instance.Stop("Level"+PlayerPrefs.GetInt("level").ToString());
                 switch(PlayerPrefs.GetInt("level"))
                 {
                     case 1: SceneManager.LoadScene("Nivel2");
@@ -78,6 +81,11 @@ public class JugadorBola : MonoBehaviour
                 audioManager.instance.Play("Punto");
             }
             Destroy(other.gameObject);
+        }
+        if(other.gameObject.tag == "Pincho")
+        {
+            audioManager.instance.Stop("Level"+PlayerPrefs.GetInt("level").ToString());
+            SceneManager.LoadScene("Perder");
         }
     
     }
@@ -131,38 +139,70 @@ public class JugadorBola : MonoBehaviour
         float aleatorio = Random.Range(0.0f, 1.0f);
         float especial = Random.Range(0.0f, 1.0f);
         Quaternion rotacion;
-        if (aleatorio > 0.5f)
-        {
-            ValX += 6f;
-            rotacion=Quaternion.Euler(0, -90, 0);
+        if(aleatorio > 0.5f ) //derecha
+        {   
+            if(Pincho ==1 && derecha){
+                    ValX += 6f;
+                    derecha=true;
+            }    
+            else
+            {
+                    ValZ += 6f;
+                    derecha=false;
+            }
         }
-        else
-        {
-            ValZ += 6f;
-            rotacion=Quaternion.Euler(0, 180, 0);
+        else //adelante
+        {   if(Pincho == 1 && !derecha){
+            
+                ValZ += 6f;
+                derecha=false;
+            }
+            else
+            {
+                ValX += 6f;
+                derecha=true;
+            }
+        
         }
 
-        if (especial > 0.95f && cont <= 0)
-        {   
-            cont=3;
+        if (especial > 0.85f && cont <= 0)
+        {   if(derecha){
+                rotacion = Quaternion.Euler(0, -90, 0);
+            }
+            else{
+                rotacion = Quaternion.Euler(0, 180, 0);
+            }
+            cont=4;
             Instantiate(booster, new Vector3(ValX, 0, ValZ), rotacion);
         }
         else // es especial
-        {   
-            if(especial < 0.2f){ // es punto
-                Instantiate(sueloPunto, new Vector3(ValX, 0, ValZ), Quaternion.identity);
+        {   if(especial > 0.75f && rojos <= 0){
+                rojos = 6;
+                Instantiate(sueloRojo, new Vector3(ValX, 0, ValZ), Quaternion.identity);
             }
             else{
-                if (aleatorio > 0.9f && rojos <= 0)
-                {
-                    rojos = 5;
-                    Instantiate(sueloRojo, new Vector3(ValX, 0, ValZ), Quaternion.identity);
+                if(especial > 0.65f && PlayerPrefs.GetInt("level") == 2){ // es pinchos
+                    Pincho=2;
+                    if(derecha){//pinchos derecha
+                        Instantiate(sueloPinchosFor, new Vector3(ValX, 0, ValZ), Quaternion.Euler(0, -90, 0));
+                        
+                    }
+                    else{//pinchos adelante
+                        Instantiate(sueloPinchosFor, new Vector3(ValX, 0, ValZ), Quaternion.identity);
+                        
+                    }
                 }
-                else
-                {
-                    Instantiate(sueloVerde, new Vector3(ValX, 0, ValZ), Quaternion.identity);
+                else{
+                    if(especial < 0.2f){ // es punto
+                        Instantiate(sueloPunto, new Vector3(ValX, 0, ValZ), Quaternion.identity);
+                    }
+                    else{
+                        Instantiate(sueloVerde, new Vector3(ValX, 0, ValZ), Quaternion.identity);
+                    }
                 }
+                
             }
+            Pincho--;
             cont--;
             rojos--;
         }
