@@ -6,10 +6,12 @@ using UnityEngine.UI;
 
 public class MenuInicial : MonoBehaviour
 {
+
+    public int pantalla = 1;
     public Button boton;
     // Start is called before the first frame update
     public void Jugar(){
-        SceneManager.LoadScene("Nivel1");
+        LevelLoader.LoadNextLevel("Nivel1");
         audioManager.instance.Stop("Menu");
     }
     

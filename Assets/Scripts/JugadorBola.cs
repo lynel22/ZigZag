@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 
 public class JugadorBola : MonoBehaviour
 {
@@ -29,7 +31,6 @@ public class JugadorBola : MonoBehaviour
     private int rojos=5;
     private bool derecha=false;
     private int Pincho=0;
-    public Transform background;
     
     // Start is called before the first frame update
     void Start()
@@ -38,7 +39,6 @@ public class JugadorBola : MonoBehaviour
         offset = camara.transform.position;
         CrearSueloIni();
         direccionActual = Vector3.forward;
-        background.transform.position = new Vector3(background.transform.position.x, background.transform.position.y, 10);
     }
 
     // Update is called once per frame
@@ -65,15 +65,16 @@ public class JugadorBola : MonoBehaviour
         if (other.gameObject.tag == "Punto")
         {   
             puntos++;
-            barraProgreso.BarValue = (int)puntos/puntosMax*100;
+            barraProgreso.BarValue = (float)Math.Round((double)puntos/puntosMax*100, 0);
             if(puntos == puntosMax){
-                audioManager.instance.Play("Levelup");
                 audioManager.instance.Stop("Level"+PlayerPrefs.GetInt("level").ToString());
                 switch(PlayerPrefs.GetInt("level"))
                 {
-                    case 1: SceneManager.LoadScene("Nivel2");
+                    case 1: LevelLoader.LoadNextLevel("Nivel2");
                         break;
-                    case 2: SceneManager.LoadScene("Fin");
+                    case 2: LevelLoader.LoadNextLevel("Nivel3");
+                        break;
+                    case 3: SceneManager.LoadScene("Fin");
                         break;
                 }
             }
@@ -136,8 +137,8 @@ public class JugadorBola : MonoBehaviour
 
     IEnumerator BorrarSuelo(GameObject suelo)
     {   
-        float aleatorio = Random.Range(0.0f, 1.0f);
-        float especial = Random.Range(0.0f, 1.0f);
+        float aleatorio = UnityEngine.Random.Range(0.0f, 1.0f);
+        float especial = UnityEngine.Random.Range(0.0f, 1.0f);
         Quaternion rotacion;
         if(aleatorio > 0.5f ) //derecha
         {   

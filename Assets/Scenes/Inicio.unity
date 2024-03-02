@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -751,6 +751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4c856d966d553f4c82b842ce5af00b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pantalla: 1
   boton: {fileID: 879470591}
 --- !u!114 &999745216
 MonoBehaviour:
@@ -1003,17 +1004,17 @@ MonoBehaviour:
   audios:
   - name: Punto
     clip: {fileID: 8300000, guid: 2b574ea11ef8e8440b34ea9e805860f7, type: 3}
-    volume: 0.3
+    volume: 0.15
     loop: 0
     source: {fileID: 0}
   - name: Levelup
     clip: {fileID: 8300000, guid: 2cd580b8b8c777941ae350bfc1e72ada, type: 3}
-    volume: 0.35
+    volume: 0.15
     loop: 0
     source: {fileID: 0}
   - name: Level1
     clip: {fileID: 8300000, guid: 4f09b9393e7cab244b83a380d88def98, type: 3}
-    volume: 0.35
+    volume: 0.15
     loop: 1
     source: {fileID: 0}
   - name: Death
@@ -1028,17 +1029,22 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Menu
     clip: {fileID: 8300000, guid: c5e7ec313db26bd4c9126da17a962d2f, type: 3}
-    volume: 0.35
+    volume: 0.15
     loop: 1
     source: {fileID: 0}
   - name: Level2
     clip: {fileID: 8300000, guid: f13c6249b0cf9304db8a67e3dcf41011, type: 3}
-    volume: 0.35
+    volume: 0.15
     loop: 1
     source: {fileID: 0}
   - name: Level3
     clip: {fileID: 8300000, guid: f3f252d52017e7140b4d0eb393b1a654, type: 3}
-    volume: 0.35
+    volume: 0.15
+    loop: 1
+    source: {fileID: 0}
+  - name: Carga
+    clip: {fileID: 8300000, guid: 8e8c7ed0c99858c46a9bf6d0a290eaa7, type: 3}
+    volume: 0.15
     loop: 1
     source: {fileID: 0}
 --- !u!4 &1675950203

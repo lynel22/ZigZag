@@ -5,6 +5,9 @@ using UnityEngine;
 public class level1 : MonoBehaviour
 {   
     // Start is called before the first frame update
+
+    public static int escena = 0;
+
     void Start()
 
     {   //encuentra el material verde
