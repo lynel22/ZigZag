@@ -363,7 +363,8 @@ MonoBehaviour:
   velocidadMax: 17
   velocidadMin: 7.5
   barraProgreso: {fileID: 323644967}
-  puntosMax: 25
+  puntosMax: 15
+  background: {fileID: 0}
 --- !u!54 &461867511
 Rigidbody:
   m_ObjectHideFlags: 0
