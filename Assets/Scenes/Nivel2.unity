@@ -358,8 +358,9 @@ MonoBehaviour:
   booster: {fileID: 4145487401833442891, guid: 00743eec6145e0e43b342b6231eeca20, type: 3}
   sueloPunto: {fileID: 1172523640312494376, guid: 81a02511713dd2b488e036568a9623e0, type: 3}
   sueloPinchosFor: {fileID: 6635794862040528380, guid: 73385e40d3ce66b4f80d8b663d5750cf, type: 3}
+  sueloSalto: {fileID: 0}
   velocidad: 15
-  velocidadMax: 20
+  velocidadMax: 17
   velocidadMin: 7.5
   barraProgreso: {fileID: 323644967}
   puntosMax: 25
